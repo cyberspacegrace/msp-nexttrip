@@ -1,21 +1,24 @@
-import logo from './logo.svg';
+import bus from './images/bus.png';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={bus} className="App-logo" alt="logo" />
+        <p className="App-header-text">
+          NextTrip
+        </p>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Your source for Minneapolis Metro Transit bus line information
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="https://www.metrotransit.org/nextrip"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          View Real-Time Departures
         </a>
       </header>
     </div>
