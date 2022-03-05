@@ -1,5 +1,6 @@
 // Package imports
 import { useState, useEffect } from 'react';
+import Table from 'react-bootstrap/Table';
 
 // Module imports
 import CustomSelect from './components/CustomSelect';
@@ -7,6 +8,7 @@ import CustomSelect from './components/CustomSelect';
 // Image and Style imports
 import bus from './images/bus.png';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   // Base API url
@@ -165,52 +167,61 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={bus} className="App-logo" alt="logo" />
-        <p className="App-header-text">
-          NextTrip
-        </p>
-        <a
-          className="App-link"
-          href="https://www.metrotransit.org/nextrip"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          View Real-Time Departures
-        </a>
-        <p>
-          Select route, direction, and stop to view departure information.
-        </p>
+        <img src={bus} className="App-logo" alt="logo" id="bus" />
+        <div className="App-header-text-container">
+          <p className="App-header-text">
+            NextTrip
+          </p>
+          <a
+            className="App-link"
+            href="https://www.metrotransit.org/nextrip"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            View Real-Time Departures
+          </a>
+          <p>
+            Select route, direction, and stop to view departure information.
+          </p>
+        </div>
       </header>
-        <CustomSelect
-          options={routeOptions()}
-          setSelected={(option) => setGivenRoute(option.value)}
-        />
-        {directions.length > 0 &&
+      <div className="App-body">
+        <div className="App-dropdowns">
           <CustomSelect
-            options={directionOptions()} 
-            setSelected={(option) => setGivenDirection(option.value)} 
+            options={routeOptions()}
+            setSelected={(option) => setGivenRoute(option.value)}
+            placeholder={'Select Route...'}
           />
-        }
-        {stops.length > 0 && 
-          <CustomSelect
-            options={stopOptions()}
-            setSelected={(option) => setGivenStop(option.value)}
-          />
-        }
+          {directions.length > 0 &&
+            <CustomSelect
+              options={directionOptions()}
+              setSelected={(option) => setGivenDirection(option.value)}
+              placeholder={'Select Direction...'}
+            />
+          }
+          {stops.length > 0 &&
+            <CustomSelect
+              options={stopOptions()}
+              setSelected={(option) => setGivenStop(option.value)}
+              placeholder={'Select Stop...'}
+            />
+          }
+        </div>
         {departures && (
-        <table>
+        <Table striped bordered hover>
           <thead>
             <tr key={'header'}>
-              <th>Route</th>
-              <th>Destination</th>
-              <th>Departs</th>
+              <th style={{textAlign: "center"}}>Route</th>
+              <th style={{textAlign: "center"}}>Destination</th>
+              <th style={{textAlign: "center"}}>Departs</th>
             </tr>
           </thead>
           <tbody>
             {generateDepartureTable()}
           </tbody>
-        </table>
+        </Table>
         )}
+      </div>
     </div>
   );
 }
