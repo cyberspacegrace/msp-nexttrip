@@ -9,17 +9,19 @@ import CustomSelect from './components/CustomSelect';
 import bus from './images/bus.png';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fontsource/montserrat';
 
 const App = () => {
   // Base API url
   const apiUrl = 'https://svc.metrotransit.org/nextripv2';
 
+  // State to track retrieved routes, directions, stops, and departure information
   const [routes, setRoutes] = useState([]);
   const [directions, setDirections] = useState([]);
   const [stops, setStops] = useState([]);
   const [departures, setDepartures] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+
+  // State to track user selected route, direction, and stop
   const [givenRoute, setGivenRoute] = useState(null);
   const [givenDirection, setGivenDirection] = useState(null);
   const [givenStop, setGivenStop] = useState(null);
@@ -47,10 +49,9 @@ const App = () => {
             setDepartures(data);
             break;
         }
-        setError(null);
       })
       .catch((err) => {
-        setError(err.message);
+        console.log(err.message);
         switch (dataToFetch) {
           case 'routes':
             setRoutes([]);
@@ -65,9 +66,6 @@ const App = () => {
             setDepartures([]);
             break;
         }
-      })
-      .finally(() => {
-        setLoading(false);
       });
   };
 
